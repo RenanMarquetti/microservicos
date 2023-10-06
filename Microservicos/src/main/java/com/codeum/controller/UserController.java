@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codeum.dto.UserDTO;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -70,10 +72,15 @@ public class UserController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserDTO inserir(@RequestBody UserDTO userDto) {
+	public UserDTO inserir(@RequestBody @Valid UserDTO userDto) {
 		userDto.setDataCadastro(LocalDateTime.now());
 		usuarios.add(userDto);
 		return userDto;
+	}
+
+	@DeleteMapping("/{cpf}")
+	public boolean remover(@PathVariable String cpf) {
+		return usuarios.removeIf(userDTO -> userDTO.getCpf().equals(cpf));
 	}
 
 }

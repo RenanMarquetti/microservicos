@@ -2,13 +2,20 @@ package com.codeum.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotBlank;
+
 
 
 public class UserDTO {
 	
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
+	
+	@NotBlank(message = "cpf é obrigatório")
 	private String cpf;
 	private String endereco;
+	
+	@NotBlank(message = "email é obrigatorio")
 	private String email;
 	private String telefone;
 	private LocalDateTime dataCadastro;

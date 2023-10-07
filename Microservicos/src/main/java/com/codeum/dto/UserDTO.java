@@ -2,29 +2,30 @@ package com.codeum.dto;
 
 import java.time.LocalDateTime;
 
+import com.codeum.model.User;
+
 import jakarta.validation.constraints.NotBlank;
 
-
-
 public class UserDTO {
-	
+
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
-	
+
 	@NotBlank(message = "cpf é obrigatório")
 	private String cpf;
 	private String endereco;
-	
+
 	@NotBlank(message = "email é obrigatorio")
 	private String email;
 	private String telefone;
 	private LocalDateTime dataCadastro;
-	
+
 	public UserDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDTO(String nome, String cpf, String endereco, String email, String telefone, LocalDateTime dataCadastro) {
+	public UserDTO(String nome, String cpf, String endereco, String email, String telefone,
+			LocalDateTime dataCadastro) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -81,5 +82,16 @@ public class UserDTO {
 	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
+
+	public static UserDTO convert(User user) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setNome(user.getNome());
+		userDTO.setEndereco(user.getEndereco());
+		userDTO.setCpf(user.getCpf());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setTelefone(user.getTelefone());
+		userDTO.setDataCadastro(user.getDataCadastro());
+		return userDTO;
+	}
+
 }
